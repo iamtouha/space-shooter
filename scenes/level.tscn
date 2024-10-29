@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxv2hsdv4dyc6"]
+
+[ext_resource type="Texture2D" uid="uid://cg3pgandhx28u" path="res://graphics/backgrounds/black.png" id="1_3gnbm"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_ox6ce"]
+[ext_resource type="PackedScene" uid="uid://d2baxh22gsa7e" path="res://scenes/player.tscn" id="2_8smb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w42wi"]
+size = Vector2(19, 652)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awxqg"]
+size = Vector2(1155, 20)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ox6ce")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(579.5, 326.5)
+scale = Vector2(4.50391, 2.55078)
+texture = ExtResource("1_3gnbm")
+
+[node name="Player" parent="." instance=ExtResource("2_8smb3")]
+position = Vector2(304, 163)
+
+[node name="Borders" type="Node2D" parent="."]
+
+[node name="RightBorder" type="StaticBody2D" parent="Borders"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
+position = Vector2(1142, 324)
+shape = SubResource("RectangleShape2D_w42wi")
+
+[node name="LeftBorder" type="StaticBody2D" parent="Borders"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
+position = Vector2(12, 325)
+shape = SubResource("RectangleShape2D_w42wi")
+
+[node name="TopBorder" type="StaticBody2D" parent="Borders"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder"]
+position = Vector2(578, 8)
+shape = SubResource("RectangleShape2D_awxqg")
+
+[node name="BottomBorder" type="StaticBody2D" parent="Borders"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BottomBorder"]
+position = Vector2(578, 642)
+shape = SubResource("RectangleShape2D_awxqg")
+
+[node name="MeteorTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Meteors" type="Node2D" parent="."]
+
+[connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
