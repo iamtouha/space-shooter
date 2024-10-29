@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cf254mnoqiyfs" path="res://graphics/ships/playerShip1_red.png" id="1_xynyx"]
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(1, 1)
+position = Vector2(0, 1)
+collision_mask = 6
 script = ExtResource("1_eb5uw")
 
 [node name="PlayerImage" type="Sprite2D" parent="."]
@@ -12,3 +13,11 @@ texture = ExtResource("1_xynyx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-12, -12, -8, -37, 9, -37, 12, -12, 35, 2, 36, 22, 14, 27, 7, 36, -7, 37, -13, 27, -36, 22, -36, 3)
+
+[node name="LaserStartPos" type="Marker2D" parent="."]
+position = Vector2(0, -47)
+
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
